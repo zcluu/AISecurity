@@ -1,8 +1,9 @@
 import numpy as np
 import torch
+import abc
 
 
-class AdvModel(object):
+class AdvModel(abc.ABC):
     def __init__(
             self,
             candidate: int = 100,
@@ -19,7 +20,8 @@ class AdvModel(object):
         self.clip_max = clip_max
         self.device = device
 
-    def attack(self, model, x):
+    @abc.abstractmethod
+    def __call__(self, model, x):
         raise NotImplementedError
 
     @staticmethod
