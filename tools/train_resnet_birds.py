@@ -24,7 +24,7 @@ from adv_tools.utils.logger import get_logger
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--save_dir', type=str, default='./results')
-    parser.add_argument("--data_dir", type=str, default='/home/lzc/SourceCode/AISecurity/Adversarial Attack/datasets')
+    parser.add_argument("--data_dir", type=str, default='datasets')
     parser.add_argument("--batch_size", type=int, default=128)
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--seed", type=int, default=1)

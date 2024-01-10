@@ -46,7 +46,7 @@ def main_worker(local_rank, nprocs, args):
     cudnn.benchmark = True
     dist.init_process_group(backend='nccl', init_method=init_method, world_size=args.nprocs, rank=local_rank)
     # Init Model
-    cls_num = len(os.listdir(args.data_dir))
+    cls_num = len(os.listdir(os.path.join(args.data_dir, 'train')))
     logger.info(f'Number of classes: {cls_num}')
     model = resnet50(num_classes=cls_num)
     ckpt = torch.load('/mnt/weights/resnet50-0676ba61.pth')
