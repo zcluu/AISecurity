@@ -23,5 +23,5 @@ dirs = [
 ]
 for it in dirs:
     os.system(
-        f'ln -s {os.path.join(args.origin_dir, it)} {os.path.join(args.target_dir, it)}"'
+        f'ln -s {os.path.join(args.origin_dir.rstrip("/"), it)} {os.path.join(args.target_dir.rstrip("/"), it)}'
     )
