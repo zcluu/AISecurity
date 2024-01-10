@@ -5,6 +5,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--origin_dir', type=str, required=True, help='Original dataset directory.(ImageNet or others)')
 parser.add_argument('--target_dir', type=str, required=True, help='Target dataset directory.(Where to save)')
 args = parser.parse_args()
+os.makedirs(args.target_dir, exist_ok=True)
 
 # Target Category, ImageNet or others
 # Birds
