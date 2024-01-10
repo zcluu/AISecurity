@@ -1,13 +1,15 @@
 import argparse
-import sys, os
+import os
+import sys
 from pathlib import Path
 
 import pandas as pd
 from torch.utils.data import DataLoader
 
-from deepfool import DeepFool
-from functional import resume_img
-from logger import get_logger
+sys.path.append(os.getcwd())
+from adv_tools.models.deepfool import DeepFool
+from adv_tools.utils.functional import resume_img
+from adv_tools.utils.logger import get_logger
 
 ROOT = Path(os.getcwd())
 
@@ -25,7 +27,7 @@ def make_args():
     # Train Config
     parser.add_argument('--data_dir', type=str)
     parser.add_argument('--save_dir', type=str, default=ROOT / 'results')
-    parser.add_argument('--batch_size', type=int, default=128)
+    parser.add_argument('--batch_size', type=int, default=4)
     # Model Config
     parser.add_argument('--cls_num', type=int, default=1000)
 
@@ -37,6 +39,9 @@ def main():
     args = make_args().parse_args()
     logger.info('Args: {}'.format(args))
     model = resnet50(pretrained=True).cuda()
+    # model.load_state_dict(
+    #     torch.load('results/resnet/2024-01-10_10-03-02/0049.pth')['model']
+    # )
     model.eval()
     transform = transforms.Compose([
         transforms.Resize((args.img_size, args.img_size)),
