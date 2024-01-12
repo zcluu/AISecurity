@@ -7,6 +7,7 @@ import torch
 import torch.multiprocessing as mp
 import torch.distributed as dist
 import torch.backends.cudnn as cudnn
+import torchinfo
 
 from cv_lib.utils import make_deterministic
 from torch import nn
@@ -49,7 +50,8 @@ def main_worker(local_rank, nprocs, args):
     cls_num = len(os.listdir(os.path.join(args.data_dir, 'train')))
     logger.info(f'Number of classes: {cls_num}')
     model = resnet50(num_classes=cls_num)
-    ckpt = torch.load('/mnt/weights/resnet50-0676ba61.pth')
+    torchinfo.summary(model, input_size=(1, 3, 224, 224))
+    ckpt = torch.load('/mnt/weights/resnet50-0676ba61.pth', map_location='cpu')
     del ckpt['fc.weight']
     del ckpt['fc.bias']
     model.load_state_dict(ckpt, strict=False)

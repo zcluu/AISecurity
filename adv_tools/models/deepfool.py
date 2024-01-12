@@ -17,7 +17,7 @@ class DeepFool(AdvModel):
         r_tot = torch.zeros(x.size()).to(self.device)
 
         cur_iter = 0
-        while (adv_labels == ori_labels).any and cur_iter < self.max_iter:
+        while (adv_labels == ori_labels).any() and cur_iter < self.max_iter:
             pred = adv_logits.topk(self.candidate)[0]
             gradients = torch.stack(self.jacobian(pred, adv_x, self.candidate), dim=1)
             with torch.no_grad():

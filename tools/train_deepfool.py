@@ -27,7 +27,7 @@ def make_args():
     # Train Config
     parser.add_argument('--data_dir', type=str)
     parser.add_argument('--save_dir', type=str, default=ROOT / 'results')
-    parser.add_argument('--batch_size', type=int, default=4)
+    parser.add_argument('--batch_size', type=int, default=16)
     # Model Config
     parser.add_argument('--cls_num', type=int, default=1000)
 
@@ -51,7 +51,7 @@ def main():
     dataset = ImageFolder(root=args.data_dir, transform=transform)
     dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=False, num_workers=10, pin_memory=True)
 
-    attack = DeepFool(candidate=10, max_iter=100)
+    attack = DeepFool(candidate=5, max_iter=100)
     dic = {
         'ori_correct': [],
         'adv_correct': [],
